@@ -28,6 +28,24 @@ class Utility:
 			print("[-] This Video Already exsists")
 			print(e)
 
+	def downloadnconvytvid(self, link):
+		try:
+			self.video = pafy.new(link)
+			self.bestResolutionVideo = self.video.getbest()
+			self.videoName = str(self.video.title) + ".mp4"
+			self.videoSize = self.bestResolutionVideo.get_filesize()
+			self.videoSizeInMb = size(self.videoSize, system=verbose)
+			print("[+] Downloading {}".format(self.videoName))
+			print("[+] Size: {}".format(self.videoSizeInMb))
+			self.bestResolutionVideo.download('./Video/')
+			print("[+] Download Complete !", "\n")
+
+			print("[+] Converting Video to Audio")
+			self.videoFile = mp.VideoFileClip(r"./Video/" + self.videoName)
+			self.songName = str(self.video.title) + ".mp3"
+			self.videoFile.audio.write_audiofile(r"./Audio/" + self.songName)
+			print("[+] Converison Complete !")
+
 # Main Class
 
 class Main:
