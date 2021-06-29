@@ -45,6 +45,8 @@ class Utility:
 			self.songName = str(self.video.title) + ".mp3"
 			self.videoFile.audio.write_audiofile(r"./Audio/" + self.songName)
 			print("[+] Converison Complete !")
+		except Exception as e:
+			print("[+] An Unkown error occurred: ", e)
 
 # Main Class
 
