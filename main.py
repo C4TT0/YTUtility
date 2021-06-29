@@ -1,9 +1,12 @@
 # Imports 
 
 import sys
+import os
 import re
 import random
 import pafy
+import random
+from pytube import Playlist
 from hurry.filesize import verbose, size
 import moviepy.editor as mp
 
@@ -48,6 +51,31 @@ class Utility:
 		except Exception as e:
 			print("[+] An Unkown error occurred: ", e)
 
+	def downloadplaylist(self, link):
+		try:
+			self.randNum = random.randint(0, 99999)
+			self.dirName = "Playlist" + str(self.randNum)
+			self.cwd = os.getcwd()
+			self.path = os.path.join(self.cwd, self.dirName)
+
+			try:
+				os.mkdir(self.path)
+			except FileExistsError as e:
+				print("[-] Folder Already Exsists")
+
+			print("[+] Downloading Playlist")
+
+			self.p = Playlist(link)
+			for video in range(0, len(self.p)):
+				self.vid = pafy.new(self.p[video])
+				self.bestRes = self.vid.getbest()
+				self.bestRes.download(r'{}'.format(self.dirName + "/"))
+
+			print("[+] Download Complete")
+
+		except Exception as e:
+			print("[+] An Unkown error occurred ", e)
+
 # Main Class
 
 class Main:
@@ -59,8 +87,8 @@ class Main:
 
 		[ 1 ] Download Youtube Video
 		[ 2 ] Download Youtube Video and Convert it to Audio
-		[ 3 ] Download Youtube Playlist
-		[ 4 ] Download Youtube Playlist and Convert it to Audio
+		[ 3 ] Download Youtube Playlist ( Make sure that the playlist is public )
+		[ 4 ] Download Youtube Playlist and Convert it to Audio ( Make sure that the playlist is public )
 		[ 5 ] Gather Youtube Video Data
 		[ 99 ] Exit
 
@@ -87,7 +115,7 @@ class Main:
 				print("2")
 
 			elif self.urlInput == "3":
-				print("3")
+				Utility().downloadplaylist("https://www.youtube.com/playlist?list=PLAyZZFqXfE53WOsDdpw0H3wsdIITSPb07")
 
 			elif self.urlInput == "4":
 				print("4")
