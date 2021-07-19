@@ -85,11 +85,12 @@ class Main:
 		[+] Youtube Utility [+]
 		=======================
 
-		[ 1 ] Download Youtube Video
-		[ 2 ] Download Youtube Video and Convert it to Audio
-		[ 3 ] Download Youtube Playlist ( Make sure that the playlist is public )
-		[ 4 ] Download Youtube Playlist and Convert it to Audio ( Make sure that the playlist is public )
+		[ 1 ] Download Youtube Video [ Link ]
+		[ 2 ] Download Youtube Video and Convert it to Audio [ Link ]
+		[ 3 ] Download Youtube Playlist ( Make sure that the playlist is public ) [ Link ]
+		[ 4 ] Download Youtube Playlist and Convert it to Audio ( Make sure that the playlist is public ) [ Link ]
 		[ 5 ] Gather Youtube Video Data
+		[ 6 ] Youtube Search For Audio Download
 		[ 99 ] Exit
 
 		Made By Typh0n12
