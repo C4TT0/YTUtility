@@ -2,6 +2,8 @@
 
 A CLI made in python3 for some quick actions on youtube videos
 
+![alt text](https://github.com/Typh0n12/YTUtility/blob/master/Images/menu.png?raw=true)
+
 ## Features
 
 - Download Youtube Video [ Link ]
