@@ -1,0 +1,6 @@
+youtube-dl==2021.6.6
+urllib3==1.25.8
+moviepy==1.0.3
+pafy==0.5.5
+hurry.filesize==0.9
+pytube==10.8.5

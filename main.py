@@ -194,6 +194,8 @@ class Utility:
 		print("[+] Cleaning things up ")
 		os.remove("./Video/" + self.videoName)
 
+		print("[+] Done")
+
 
 # Main Class
 
