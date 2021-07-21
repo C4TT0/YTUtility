@@ -6,6 +6,7 @@ import re
 import random
 import pafy
 import random
+import urllib.request
 from pytube import Playlist
 from hurry.filesize import verbose, size
 import moviepy.editor as mp
@@ -149,6 +150,47 @@ class Utility:
 		except Exception as e:
 			print("[+] An Unkown error occurred ", e)
 
+	# Function to search youtube and download song and convert it to audio
+
+	def searchnconv(self, link):
+		link = link.replace(" ", "+")
+		html = urllib.request.urlopen(f"https://www.youtube.com/results?search_query={link}")
+		video_ids = re.findall(r"watch\?v=(\S{11})", html.read().decode())
+		list_of_ids = []
+
+		for i in range(0, 4):
+		    v = pafy.new(video_ids[i])
+		    print( f"[ {i} ] " + str(v.title) + " By" + " " + str(v.author) + " " + str(v.duration) + " Long" + " " + str(v.viewcount) + " Views")
+		    list_of_ids.append(video_ids[i])
+
+		choice = int(input("[+] Choose one: "))
+
+		finalUrl = "https://www.youtube.com/watch?v=" + list_of_ids[choice]
+
+		print("[+] Target URL: ", finalUrl)
+
+		print("[+] Downloading Video")
+
+		self.video = pafy.new(finalUrl)
+		self.bestResolutionVideo = self.video.getbest()
+		self.videoName = str(self.video.title) + ".mp4"
+		self.videoSize = self.bestResolutionVideo.get_filesize()
+		self.videoSizeInMb = size(self.videoSize, system=verbose)
+		print("[+] Downloading {}".format(self.videoName))
+		print("[+] Size: {}".format(self.videoSizeInMb))
+		self.bestResolutionVideo.download('./Video/')
+		print("[+] Download Complete !", "\n")
+
+		print("[+] Converting Video to Audio")
+		self.videoFile = mp.VideoFileClip(r"./Video/" + self.videoName)
+		self.songName = str(self.video.title) + ".mp3"
+		self.videoFile.audio.write_audiofile(r"./Audio/" + self.songName)
+		print("[+] Converison Complete !")
+
+		print("[+] Cleaning things up ")
+		os.remove("./Video/" + self.videoName)
+
+
 # Main Class
 
 class Main:
@@ -165,8 +207,7 @@ class Main:
 		[ 2 ] Convert Youtube Video to Audio [ Link ]
 		[ 3 ] Download Youtube Playlist ( Make sure that the playlist is public ) [ Link ]
 		[ 4 ] Convert Youtube Playlist to Audio ( Make sure that the playlist is public ) [ Link ]
-		[ 5 ] Gather Youtube Video Data
-		[ 6 ] Youtube Search For Audio Download
+		[ 5 ] Youtube Search For Audio Download
 		[ 99 ] Exit
 
 		Made By Typh0n12
@@ -232,10 +273,8 @@ class Main:
 					Utility().convertplaylisttoaudio(self.input)
 
 			elif self.urlInput == "5":
-				pass
-
-			elif self.urlInput == "6":
-				pass
+				self.input = str(input("[+] Search Query: "))
+				Utility().searchnconv(self.input)
 
 			else:
 				print("[-] Please Make a valid choice !")
