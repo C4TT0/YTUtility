@@ -59,6 +59,8 @@ class Utility:
 			print("[+] Cleaning Up")
 			os.remove('./Video/' + self.videoName)
 
+			print("[+] Done !")
+
 		except Exception as e:
 			print("[+] An Unkown error occurred: ", e)
 
@@ -145,6 +147,8 @@ class Utility:
 			for _ in os.listdir(dir_):
 				if _.endswith(ext):
 					os.remove(dir_ + "/" + _)
+
+			print("[+] Done")
 			
 
 		except Exception as e:
